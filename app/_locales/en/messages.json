@@ -1,0 +1,10 @@
+{
+  "appName": {
+    "message": "Camtd",
+    "description": "The name of the application"
+  },
+  "appDescription": {
+    "message": "Chrome multi-threaded downloader extension,based on Aria2 and AriaNg.",
+    "description": "The description of the application"
+  }
+}
