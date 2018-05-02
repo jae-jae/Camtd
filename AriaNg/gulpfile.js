@@ -147,7 +147,13 @@ gulp.task('info', function () {
     ]).pipe($.size({title: 'build', gzip: true}));
 });
 
-gulp.task('build', $.sequence('lint', 'html', 'langs', 'images', 'fonts', 'manifest', 'extras', 'info'));
+gulp.task('copyToUI', function () {
+    return gulp.src([
+        'dist/**/*'
+    ]).pipe(gulp.dest('../app/ui'));
+});
+
+gulp.task('build', $.sequence('lint', 'html', 'langs', 'images', 'fonts', 'manifest', 'extras', 'info','copyToUI'));
 
 gulp.task('default', ['clean'], function () {
     gulp.start('build');

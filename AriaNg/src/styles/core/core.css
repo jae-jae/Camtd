@@ -16,6 +16,8 @@ body {
     -webkit-user-select: none;
     -moz-user-select: none;
     user-select: none;
+    width: 600px;
+    height: 800px;
 }
 
 td {
