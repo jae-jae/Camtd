@@ -1,19 +1,48 @@
 <!doctype html>
 <html>
   <head>
+    <meta charset="utf-8">
     <!-- build:css styles/options-vendor.css -->
     <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/mui/packages/cdn/css/mui.css" />
     <!-- endbower -->
     <!-- endbuild -->
-    <!-- build:css styles/main.css -->
-    <link href="styles/main.css" rel="stylesheet">
+    <!-- build:css styles/options.css -->
+    <link href="styles/options.css" rel="stylesheet">
     <!-- endbuild -->
   </head>
   <body>
-    <h1>'Allo, 'Allo!</h1>
+
+      <div class="mui-panel main-panel">
+          <form class="mui-form">
+              <legend>Camtd Setting</legend>
+              <div class="mui-select">
+                <select>
+                  <option>OFF</option>
+                  <option>ON</option>
+                </select>
+                <label>Automatically intercept download tasks to Aria2c</label>
+              </div>
+              <div class="mui-textfield mui-textfield--float-label">
+                  <input type="text" value="10">
+                  <label>The minimum file size to intercept (MB)</label>
+              </div>
+              <div class="mui-textfield mui-textfield--float-label">
+                  <input type="text" value="http://localhost:6800/jsonrpc">
+                  <label>ARIA2 RPC</label>
+              </div>
+              <button type="submit" class="mui-btn mui-btn--primary">Save</button>
+            </form>
+      </div>
+      <p>最小监视:
+      <input type="text" name="size" id="size" placeholder="10" size="4" />M <span></span></p>
+        <p>JSON-RPC 链接:
+        <input type="text" name="path" id="path" placeholder="http://localhost:6800/jsonrpc" size="40" /><span></span></p>
+      <p>例：http://localhost:6800/jsonrpc</p>
 
     <!-- build:js scripts/options-vendor.js -->
     <!-- bower:js -->
+    <script src="bower_components/mui/packages/cdn/js/mui.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 

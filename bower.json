@@ -2,7 +2,9 @@
   "name": "camtd",
   "private": true,
   "version": "0.0.0",
-  "dependencies": {},
+  "dependencies": {
+    "mui": "^0.9.39"
+  },
   "devDependencies": {
     "chai": "^4.1.2",
     "mocha": "^5.1.1"
