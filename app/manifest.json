@@ -12,9 +12,15 @@
     "scripts": [
       "scripts/chromereload.js",
       "scripts/background.js"
-    ]
+    ],
+    "persistent": true
   },
-  "permissions": [],
+  "permissions": [
+    "downloads",
+    "*://*/",
+    "notifications",
+    "contextMenus"
+  ],
   "options_ui": {
     "page": "options.html",
     "chrome_style": true
