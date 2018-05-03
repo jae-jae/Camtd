@@ -361,8 +361,9 @@ function _init() {
     expandOnHover: function () {
       var _this = this;
       var screenWidth = $.AdminLTE.options.screenSizes.sm - 1;
+      var handleTime;
       //Expand sidebar on hover
-      $('.main-sidebar,.main-header').hover(function () {
+      $('.main-sidebar,.main-header>.logo').hover(function () {
         if ($('body').hasClass('sidebar-mini')
           && $("body").hasClass('sidebar-collapse')
           && $(window).width() > screenWidth) {
@@ -370,8 +371,8 @@ function _init() {
         }
       }, function () {
         if ($('body').hasClass('sidebar-mini')
-          && $('body').hasClass('sidebar-expanded-on-hover')
-          && $(window).width() > screenWidth) {
+        && $('body').hasClass('sidebar-expanded-on-hover')
+        && $(window).width() > screenWidth) {
           _this.collapse();
         }
       });

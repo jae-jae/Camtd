@@ -223,3 +223,7 @@ td {
         width: 6px;
     }
 }
+
+.navbar-static-top {
+    max-height: 42px;
+}

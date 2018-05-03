@@ -68,6 +68,9 @@
                     options.type = 'primary';
                 }
 
+                options.positionX = 'right';
+                options.positionY = 'bottom';
+
                 return Notification[options.type](options);
             },
             notifyTaskComplete: function (task) {
