@@ -12,6 +12,7 @@ gulp.task('extras', () => {
     'app/*.*',
     'app/_locales/**',
     'app/ui/**',
+    'app/libs/**',
     '!app/scripts.babel',
     '!app/*.json',
     '!app/*.html',
