@@ -7,7 +7,8 @@ chrome.runtime.onInstalled.addListener(details => {
 // chrome.browserAction.setBadgeText({text: '\'Allo'});
 
 var enabled = localStorage['enabled'];
-var size = localStorage['size'] * 1024 * 1024;
+var size = localStorage['size'] === undefined ? 0 : localStorage['size']
+size = size * 1024 * 1024;
 var path = localStorage['path'];
 
 var notice = function (message,title = 'Camtd') {
@@ -16,16 +17,29 @@ var notice = function (message,title = 'Camtd') {
     iconUrl: 'images/icon-38.png',
     title,
     message
+  },function (id) {
+    setTimeout(function(){
+      chrome.notifications.clear(id);
+    },5000);
   })
+}
+
+var sendAnimMsg = function () {
+	console.log('sending msg');
+	chrome.tabs.query({active: true}, function (tabs) {
+		tabs.forEach(function (tab) {
+			chrome.tabs.sendMessage(tab.id, {
+        action: 'show-add-task-anim'
+      });
+			console.log('msg send');
+		})
+	})
 }
 
 chrome.downloads.onDeterminingFilename.addListener(add);
 
 function add(down) {
-  size = localStorage['size'] * 1024 * 1024;
-  path = localStorage['path'];
-  enabled = localStorage['enabled'];
-  if (!path || !size) {
+  if (!path) {
     alert('Camtd has not been configured');
     chrome.tabs.create({ 'url': 'options.html' }, function (s) { });
     localStorage['enabled'] = 0;
@@ -41,7 +55,8 @@ function add(down) {
       notice('Error adding tasks to aria2!','Error')
     } else {
       chrome.downloads.cancel(down.id, function (s) { });
-      notice('Aria2 is starting to download files.', down.filename)
+      // notice('Aria2 is starting to download files.', down.filename)
+      sendAnimMsg()
     }
   }
 }
@@ -112,7 +127,8 @@ function rightadd(info, tab) {
   if (ifpostback == 'base64_error') {
     notice('Error adding tasks to aria2!','Error')
   } else {
-    notice('Aria2 is starting to download files.', down.filename)
+    // notice('Aria2 is starting to download files.', down.filename)
+    sendAnimMsg()
   }
 }
 

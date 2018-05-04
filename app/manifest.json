@@ -4,8 +4,8 @@
   "manifest_version": 2,
   "description": "__MSG_appDescription__",
   "icons": {
-    "16": "images/icon-16.png",
-    "128": "images/icon-128.png"
+    "16": "images/default/icon-16.png",
+    "128": "images/default/icon-128.png"
   },
   "default_locale": "en",
   "background": {
@@ -15,6 +15,10 @@
     ],
     "persistent": true
   },
+  "content_scripts": [ {
+    "js": [ "scripts/indicator.js" ],
+    "matches": [ "<all_urls>"]
+  }],
   "permissions": [
     "downloads",
     "*://*/",
@@ -24,10 +28,11 @@
   "options_page": "options.html",
   "browser_action": {
     "default_icon": {
-      "19": "images/icon-19.png",
-      "38": "images/icon-38.png"
+      "19": "images/default/icon-19.png",
+      "38": "images/default/icon-38.png"
     },
     "default_title": "Camtd",
     "default_popup": "ui/index.html"
-  }
+  },
+  "web_accessible_resources": [ "images/down-arrow.png"]
 }
