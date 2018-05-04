@@ -36,6 +36,26 @@ var sendAnimMsg = function () {
 	})
 }
 
+let getGlobalStatus = (callback) => {
+  postaria2obj({
+    'jsonrpc': '2.0',
+    'method': 'aria2.getGlobalStat',
+    'id': (new Date()).getTime().toString()
+  }, callback)
+}
+
+setInterval(() => {
+  getGlobalStatus((data) => {
+    let num = data['result']['numActive']
+    if (num > 0) {
+      chrome.browserAction.setBadgeText({text: num});
+      chrome.browserAction.setBadgeBackgroundColor({color:'#00CC66'});
+    } else {
+      chrome.browserAction.setBadgeText({text: ''});
+    }
+  })
+}, 1000)
+
 chrome.downloads.onDeterminingFilename.addListener(add);
 
 function add(down) {
@@ -61,7 +81,7 @@ function add(down) {
   }
 }
 
-function postaria2obj(addobj) {
+function postaria2obj(addobj, callback = null) {
   var httppost = new XMLHttpRequest();
   var aria2jsonrpcpath = path;
   httppost.open('POST', aria2jsonrpcpath + '?tm=' + (new Date()).getTime().toString(), true);
@@ -76,6 +96,12 @@ function postaria2obj(addobj) {
   httppost.onerror = function () {
     notice('Error adding tasks to aria2,please check the configuration!','Error');
   };
+  httppost.addEventListener('load', function () {
+    let rt = JSON.parse(this.responseText)
+    if (callback) {
+      callback(rt)
+    }
+  })
   httppost.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
   httppost.send(JSON.stringify(addobj));
   return 'ok';
