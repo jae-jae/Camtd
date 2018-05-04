@@ -13,36 +13,35 @@
   </head>
   <body>
 
-      <div class="mui-panel main-panel">
+      <div class="mui-panel main-panel" id="app">
           <form class="mui-form">
               <legend>Camtd Setting</legend>
               <div class="mui-select">
-                <select>
-                  <option>OFF</option>
-                  <option>ON</option>
+                <select v-model="config.enabled">
+                  <option :value="0">OFF</option>
+                  <option :value="1">ON</option>
                 </select>
                 <label>Automatically intercept download tasks to Aria2c</label>
               </div>
-              <div class="mui-textfield mui-textfield--float-label">
-                  <input type="text" value="10">
+              <div v-if="config.enabled === 1">
+                <div class="mui-textfield mui-textfield--float-label">
+                  <input type="text" v-model="config.size">
                   <label>The minimum file size to intercept (MB)</label>
+                </div>
+                <div class="mui-textfield mui-textfield--float-label">
+                    <input type="text" v-model="config.path">
+                    <label>ARIA2 RPC, example：http://localhost:6800/jsonrpc</label>
+                </div>
               </div>
-              <div class="mui-textfield mui-textfield--float-label">
-                  <input type="text" value="http://localhost:6800/jsonrpc">
-                  <label>ARIA2 RPC</label>
-              </div>
-              <button type="submit" class="mui-btn mui-btn--primary">Save</button>
+              <button v-if="saved"  type="button" class="mui-btn mui-btn--primary" disabled>Saved</button>
+              <button v-else @click="save" type="button" class="mui-btn mui-btn--primary">Save</button>
             </form>
       </div>
-      <p>最小监视:
-      <input type="text" name="size" id="size" placeholder="10" size="4" />M <span></span></p>
-        <p>JSON-RPC 链接:
-        <input type="text" name="path" id="path" placeholder="http://localhost:6800/jsonrpc" size="40" /><span></span></p>
-      <p>例：http://localhost:6800/jsonrpc</p>
 
     <!-- build:js scripts/options-vendor.js -->
     <!-- bower:js -->
     <script src="bower_components/mui/packages/cdn/js/mui.js"></script>
+    <script src="scripts/vue.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 

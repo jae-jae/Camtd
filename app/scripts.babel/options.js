@@ -1,49 +1,37 @@
-// 'use strict';
+'use strict';
 
-$(document).ready(function () {
-    var favorite = localStorage["path"];
-    var enabled = localStorage["enabled"];
-    if (favorite) {
-        $('#path').val(favorite);
-    }
-    favorite = localStorage["size"];
-    if (favorite) {
-        $('#size').val(favorite);
-    }
-    $("#size").blur(function () {
-        save_options('size');
-    });
-    $("#path").blur(function () {
-        save_options('path');
-    });
-    function save_options(name) {
-        this.tmp = $.trim($('#' + name).val());
-        if (!this.tmp) {
-            show(name, "不可为空");
-            $('#' + name).focus();
-            return false;
-        } else {
-            localStorage[name] = this.tmp;
-            localStorage['enabled'] = 1;
-            showEnable();
-            show(name, "已保存");
+new Vue({
+    el: '#app',
+    data () {
+        return {
+            config: {
+                enabled: parseInt(this.valueKey('enabled',1)),
+                path: this.valueKey('path','http://localhost:6800/jsonrpc'),
+                size: parseFloat(this.valueKey('size',0))
+            },
+            saved: false
+        }
+    },
+    watch: {
+        config: {
+            handler: function () {
+                this.saved = false
+            },
+            deep: true
+        }
+    },
+    methods: {
+        valueKey (key, defaultValue) {
+            return localStorage[key] === undefined ? defaultValue : localStorage[key]
+        },
+        
+        save () {
+            console.log(this.config)
+            for (let k in this.config) {
+                localStorage[k] = this.config[k]
+            }
+            this.saved = true
         }
     }
-    function show(name, msg) {
-        $('#' + name).next('span').html(msg);
-        setTimeout(function () {
-            $('#' + name).next('span').html('');
-        }, 3000);
-    }
-    function showEnable() {
-        enabled = localStorage["enabled"];
-        if (enabled == 1) {
-            chrome.browserAction.setBadgeText({ "text": 'en' });
-            chrome.browserAction.setBadgeBackgroundColor({ color: '#008800' });
-        } else {
-            chrome.browserAction.setBadgeText({ "text": 'dis' });
-            chrome.browserAction.setBadgeBackgroundColor({ color: '#880000' });
-        }
-    }
-});
+})
 
