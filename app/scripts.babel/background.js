@@ -8,11 +8,12 @@ let enabled = localStorage['enabled'];
 let size = localStorage['size'] === undefined ? 0 : localStorage['size']
 size = size * 1024 * 1024;
 let path = localStorage['path'];
+let preNum = 0;
 
 var notice =  (message,title = 'Camtd') => {
   chrome.notifications.create({
     type: 'basic',
-    iconUrl: 'images/icon-38.png',
+    iconUrl: 'images/default/icon-38.png',
     title,
     message
   },(id) => {
@@ -51,8 +52,17 @@ setInterval(() => {
     } else {
       chrome.browserAction.setBadgeText({text: ''});
     }
+    if (preNum > num) {
+      notice('Download completed!');
+    }
+    preNum = num;
   })
 }, 1000)
+
+chrome.notifications.onClicked.addListener(function(itemId){
+	// chrome.downloads.show(parseInt(itemId));
+	chrome.notifications.clear(itemId, function(wasCleared){} );
+});
 
 chrome.downloads.onDeterminingFilename.addListener(add);
 
