@@ -21,9 +21,12 @@
   }],
   "permissions": [
     "downloads",
-    "*://*/",
+    "<all_urls>",
     "notifications",
-    "contextMenus"
+    "contextMenus",
+    "cookies",
+    "tabs",
+    "activeTab"
   ],
   "options_page": "options.html",
   "browser_action": {

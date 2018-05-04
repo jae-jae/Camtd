@@ -67,15 +67,18 @@ function add(down) {
     return 0;
   }
   if (Math.abs(down.fileSize) > size) {
-    var aria2_obj = combination(down);
-    var ifpostback = postaria2obj(aria2_obj);
-    if (ifpostback == 'base64_error') {
-      notice('Error adding tasks to aria2!','Error')
-    } else {
-      chrome.downloads.cancel(down.id, function (s) { });
-      // notice('Aria2 is starting to download files.', down.filename)
-      sendAnimMsg()
-    }
+    chrome.downloads.cancel(down.id, function (s) { });
+    getUrlCookie(down.url, (cookies) => {
+      var aria2_obj = combination(down,cookies);
+      var ifpostback = postaria2obj(aria2_obj);
+      if (ifpostback == 'base64_error') {
+        notice('Error adding tasks to aria2!','Error')
+      } else {
+        // notice('Aria2 is starting to download files.', down.filename)
+        sendAnimMsg()
+      }
+    })
+    
   }
 }
 
@@ -113,14 +116,34 @@ function aria2url_reg(url) {
   return url.split('@')[0].match('/^(http:\\/\\/\|https:\\/\\/)?(.*)\/')[2];
 }
 
-function combination(down) {
+
+function getUrlCookie(link, callback) {
+  chrome.cookies.getAll({ 'url': link }, function(cookies) {
+      var format_cookies = [];
+      for (var i in cookies) {
+          var cookie = cookies[i];
+          format_cookies.push(cookie.name + '=' + cookie.value);
+      }
+      format_cookies = format_cookies.join('; ');
+      callback(format_cookies)
+  });
+}
+
+function combination(down, cookies) {
+  
+  var header = [];
+  header.push('Cookie: ' + cookies);
+  header.push('User-Agent: ' + navigator.userAgent);
+  header.push('Connection: keep-alive');
+  header.push('Referer: ' + down.referrer);
+
   if (down.filename == '') {
     var post_obj = [{
       'jsonrpc': '2.0',
       'method': 'aria2.addUri',
       'id': (new Date()).getTime().toString(),
       'params': [[down.finalUrl], {
-        'header': 'Referer: ' + down.referrer
+        'header': header
       }]
     }];
   } else {
@@ -130,7 +153,7 @@ function combination(down) {
       'id': (new Date()).getTime().toString(),
       'params': [[down.finalUrl], {
         'out': decodeURIComponent(down.filename),
-        'header': 'Referer: ' + down.referrer
+        'header': header
       }]
     }];
   }
@@ -146,14 +169,17 @@ function rightadd(info, tab) {
     chrome.tabs.create({ 'url': 'options.html' }, function (s) { });
     return 0;
   }
-  var aria2_obj = combination(down);
-  var ifpostback = postaria2obj(aria2_obj);
-  if (ifpostback == 'base64_error') {
-    notice('Error adding tasks to aria2!','Error')
-  } else {
-    // notice('Aria2 is starting to download files.', down.filename)
-    sendAnimMsg()
-  }
+  getUrlCookie(down.url, (cookies) => {
+    var aria2_obj = combination(down,cookies);
+    var ifpostback = postaria2obj(aria2_obj);
+    if (ifpostback == 'base64_error') {
+      notice('Error adding tasks to aria2!','Error')
+    } else {
+      chrome.downloads.cancel(down.id, function (s) { });
+      // notice('Aria2 is starting to download files.', down.filename)
+      sendAnimMsg()
+    }
+  })
 }
 
 chrome.contextMenus.create({ 'title': 'Send to Aria2', 'contexts': ['link'], 'onclick': rightadd });
