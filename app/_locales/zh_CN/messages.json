@@ -1,0 +1,10 @@
+{
+  "appName": {
+    "message": "Camtd - Aria2下载管理器",
+    "description": "The name of the application"
+  },
+  "appDescription": {
+    "message": "Chrome多线程下载扩展，基于Aria2和AriaNg。",
+    "description": "The description of the application"
+  }
+}
