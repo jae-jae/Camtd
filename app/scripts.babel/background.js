@@ -7,7 +7,7 @@ chrome.runtime.onInstalled.addListener(details => {
 let enabled = localStorage['enabled'];
 let size = localStorage['size'] === undefined ? 0 : localStorage['size']
 size = size * 1024 * 1024;
-let path = localStorage['path'];
+let path = localStorage['path'] === undefined ? 'http://localhost:6800/jsonrpc' : localStorage['path'];
 let preNum = 0;
 
 var notice =  (message,title = 'Camtd') => {
@@ -71,7 +71,6 @@ function add(down) {
   if (!path) {
     alert('Camtd has not been configured');
     chrome.tabs.create({ 'url': 'options.html' }, function (s) { });
-    localStorage['enabled'] = 0;
     return 0;
   }
   if (enabled == 0) {
