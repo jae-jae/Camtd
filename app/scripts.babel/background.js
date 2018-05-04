@@ -4,27 +4,25 @@ chrome.runtime.onInstalled.addListener(details => {
   console.log('previousVersion', details.previousVersion);
 });
 
-// chrome.browserAction.setBadgeText({text: '\'Allo'});
-
-var enabled = localStorage['enabled'];
-var size = localStorage['size'] === undefined ? 0 : localStorage['size']
+let enabled = localStorage['enabled'];
+let size = localStorage['size'] === undefined ? 0 : localStorage['size']
 size = size * 1024 * 1024;
-var path = localStorage['path'];
+let path = localStorage['path'];
 
-var notice = function (message,title = 'Camtd') {
+var notice =  (message,title = 'Camtd') => {
   chrome.notifications.create({
     type: 'basic',
     iconUrl: 'images/icon-38.png',
     title,
     message
-  },function (id) {
-    setTimeout(function(){
+  },(id) => {
+    setTimeout(_ => {
       chrome.notifications.clear(id);
     },5000);
   })
 }
 
-var sendAnimMsg = function () {
+var sendAnimMsg = () => {
 	console.log('sending msg');
 	chrome.tabs.query({active: true}, function (tabs) {
 		tabs.forEach(function (tab) {
