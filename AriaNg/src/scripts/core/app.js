@@ -21,5 +21,11 @@
         'oitozero.ngSweetAlert',
         'angular-clipboard',
         angularDragula(angular)
+    ]).config( [
+        '$compileProvider',
+        function( $compileProvider )
+        {   
+            $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|chrome-extension):/);
+        }
     ]);
 }());

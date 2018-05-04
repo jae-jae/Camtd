@@ -60,7 +60,8 @@ setInterval(() => {
 }, 1000)
 
 chrome.notifications.onClicked.addListener(function(itemId){
-	// chrome.downloads.show(parseInt(itemId));
+  // chrome.downloads.show(parseInt(itemId));
+  chrome.downloads.showDefaultFolder()
 	chrome.notifications.clear(itemId, function(wasCleared){} );
 });
 
