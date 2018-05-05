@@ -4,6 +4,7 @@
   "manifest_version": 2,
   "description": "__MSG_appDescription__",
   "author": "Jaeger <JaegerCode@gmail.com>",
+  "homepage_url": "https://github.com/jae-jae/camtd",
   "icons": {
     "16": "images/default/icon-16.png",
     "128": "images/default/icon-128.png"
