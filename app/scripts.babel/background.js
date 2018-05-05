@@ -4,11 +4,19 @@ chrome.runtime.onInstalled.addListener(details => {
   console.log('previousVersion', details.previousVersion);
 });
 
-let enabled = localStorage['enabled'];
-let size = localStorage['size'] === undefined ? 0 : localStorage['size']
-size = size * 1024 * 1024;
-let path = localStorage['path'] === undefined ? 'http://localhost:6800/jsonrpc' : localStorage['path'];
 let preNum = 0;
+
+var getStorage = (key) => {
+  if (key === 'size') {
+    let size = localStorage['size'] === undefined ? 0 : localStorage['size']
+    size = size * 1024 * 1024
+    return size
+  } else if(key === 'path') {
+    let path = localStorage['path'] === undefined ? 'http://localhost:6800/jsonrpc' : localStorage['path']
+    return path
+  }
+  return localStorage[key]
+}
 
 var notice =  (message,title = 'Camtd') => {
   chrome.notifications.create({
@@ -68,15 +76,15 @@ chrome.notifications.onClicked.addListener(function(itemId){
 chrome.downloads.onDeterminingFilename.addListener(add);
 
 function add(down) {
-  if (!path) {
+  if (!getStorage('path')) {
     alert('Camtd has not been configured');
     chrome.tabs.create({ 'url': 'options.html' }, function (s) { });
     return 0;
   }
-  if (enabled == 0) {
+  if (getStorage('enabled') == 0) {
     return 0;
   }
-  if (Math.abs(down.fileSize) > size) {
+  if (Math.abs(down.fileSize) > getStorage('size')) {
     chrome.downloads.cancel(down.id, function (s) { });
     getUrlCookie(down.url, (cookies) => {
       var aria2_obj = combination(down,cookies);
@@ -94,7 +102,7 @@ function add(down) {
 
 function postaria2obj(addobj, callback = null) {
   var httppost = new XMLHttpRequest();
-  var aria2jsonrpcpath = path;
+  var aria2jsonrpcpath = getStorage('path');
   httppost.open('POST', aria2jsonrpcpath + '?tm=' + (new Date()).getTime().toString(), true);
   var ifregurl = aria2url_reg(aria2jsonrpcpath);
   if (ifregurl) {
@@ -105,7 +113,10 @@ function postaria2obj(addobj, callback = null) {
     }
   }
   httppost.onerror = function () {
-    notice('Error adding tasks to aria2,please check the configuration!','Error');
+    console.log('Error aria2 configuration!');
+    if (addobj[0] && addobj[0].method === 'aria2.addUri') {
+      notice('Error adding tasks to aria2,please check the configuration!','Error');
+    }
   };
   httppost.addEventListener('load', function () {
     let rt = JSON.parse(this.responseText)
@@ -174,7 +185,7 @@ function rightadd(info, tab) {
   var down = { filename: '' };
   down.finalUrl = info.linkUrl;
   down.referrer = info.pageUrl;
-  if (!path) {
+  if (!getStorage('path')) {
     alert('Camtd has not been configured');
     chrome.tabs.create({ 'url': 'options.html' }, function (s) { });
     return 0;
