@@ -6,5 +6,37 @@
   "appDescription": {
     "message": "Aria2とAriaNgに基づくChromeマルチスレッドダウンロード拡張機能",
     "description": "The description of the application"
+  },
+  "optionsTitle": {
+    "message": "Camtdの設定",
+    "description": "Camtd Setting"
+  },
+  "optionsOff": {
+    "message": "クローズド",
+    "description": "OFF"
+  },
+  "optionsOn": {
+    "message": "オープン",
+    "description": "ON"
+  },
+  "optionsIfIntercept": {
+    "message": "ダウンロードタスクをAria2cに自動的にインターセプトし、Camtdを使用してChromeのデフォルトのダウンロード動作を引き継ぎます。",
+    "description": "Automatically intercept download tasks to Aria2c,Use Camtd to take over Chrome's default download behavior."
+  },
+  "optionsFileSize": {
+    "message": "インターセプトする最小ファイルサイズ (MB)",
+    "description": "The minimum file size to intercept (MB)"
+  },
+  "optionsAria2Prc": {
+    "message": "ARIA2 RPC, example：http://localhost:6800/jsonrpc",
+    "description": "ARIA2 RPC, example：http://localhost:6800/jsonrpc"
+  },
+  "optionsSave": {
+    "message": "セーブ",
+    "description": "Save"
+  },
+  "optionsSaved": {
+    "message": "保存された",
+    "description": "Saved"
   }
 }

@@ -6,5 +6,37 @@
   "appDescription": {
     "message": "Chrome multi-threaded downloader extension,based on Aria2 and AriaNg.",
     "description": "The description of the application"
+  },
+  "optionsTitle": {
+    "message": "Camtd Setting",
+    "description": "Camtd Setting"
+  },
+  "optionsOff": {
+    "message": "OFF",
+    "description": "OFF"
+  },
+  "optionsOn": {
+    "message": "ON",
+    "description": "ON"
+  },
+  "optionsIfIntercept": {
+    "message": "Automatically intercept download tasks to Aria2c,Use Camtd to take over Chrome's default download behavior.",
+    "description": "Automatically intercept download tasks to Aria2c,Use Camtd to take over Chrome's default download behavior."
+  },
+  "optionsFileSize": {
+    "message": "The minimum file size to intercept (MB)",
+    "description": "The minimum file size to intercept (MB)"
+  },
+  "optionsAria2Prc": {
+    "message": "ARIA2 RPC, example：http://localhost:6800/jsonrpc",
+    "description": "ARIA2 RPC, example：http://localhost:6800/jsonrpc"
+  },
+  "optionsSave": {
+    "message": "Save",
+    "description": "Save"
+  },
+  "optionsSaved": {
+    "message": "Saved",
+    "description": "Saved"
   }
 }

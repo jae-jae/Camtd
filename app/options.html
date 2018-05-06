@@ -15,26 +15,26 @@
 
       <div class="mui-panel main-panel" id="app">
           <form class="mui-form">
-              <legend>Camtd Setting</legend>
+              <legend>{{i18n.title}}</legend>
               <div class="mui-select">
                 <select v-model="config.enabled">
-                  <option :value="0">OFF</option>
-                  <option :value="1">ON</option>
+                  <option :value="0">{{i18n.off}}</option>
+                  <option :value="1">{{i18n.on}}</option>
                 </select>
-                <label>Automatically intercept download tasks to Aria2c</label>
+                <label>{{i18n.ifIntercept}}</label>
               </div>
               <div v-if="config.enabled === 1">
                 <div class="mui-textfield mui-textfield--float-label">
                   <input type="text" v-model="config.size">
-                  <label>The minimum file size to intercept (MB)</label>
+                  <label>{{i18n.fileSize}}</label>
                 </div>
                 <div class="mui-textfield mui-textfield--float-label">
                     <input type="text" v-model="config.path">
-                    <label>ARIA2 RPC, example：http://localhost:6800/jsonrpc</label>
+                    <label>{{i18n.aria2Prc}}</label>
                 </div>
               </div>
-              <button v-if="saved"  type="button" class="mui-btn mui-btn--primary" disabled>Saved</button>
-              <button v-else @click="save" type="button" class="mui-btn mui-btn--primary">Save</button>
+              <button v-if="saved"  type="button" class="mui-btn mui-btn--primary" disabled>{{i18n.saved}}</button>
+              <button v-else @click="save" type="button" class="mui-btn mui-btn--primary">{{i18n.save}}</button>
             </form>
       </div>
 

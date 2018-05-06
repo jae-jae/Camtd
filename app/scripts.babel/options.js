@@ -9,7 +9,17 @@ new Vue({
                 path: this.valueKey('path','http://localhost:6800/jsonrpc'),
                 size: parseFloat(this.valueKey('size',0))
             },
-            saved: false
+            saved: false,
+            i18n: {
+                title: this.getI18nMessage('optionsTitle'),
+                off: this.getI18nMessage('optionsOff'),
+                on: this.getI18nMessage('optionsOn'),
+                ifIntercept: this.getI18nMessage('optionsIfIntercept'),
+                fileSize: this.getI18nMessage('optionsFileSize'),
+                aria2Prc: this.getI18nMessage('optionsAria2Prc'),
+                save: this.getI18nMessage('optionsSave'),
+                saved: this.getI18nMessage('optionsSaved')
+            }
         }
     },
     watch: {
@@ -21,6 +31,11 @@ new Vue({
         }
     },
     methods: {
+
+        getI18nMessage (key) {
+           return chrome.i18n.getMessage(key) 
+        },
+
         valueKey (key, defaultValue) {
             return localStorage[key] === undefined ? defaultValue : localStorage[key]
         },

@@ -6,5 +6,37 @@
   "appDescription": {
     "message": "Chrome多线程下载扩展，基于Aria2和AriaNg。",
     "description": "The description of the application"
+  },
+  "optionsTitle": {
+    "message": "Camtd设置",
+    "description": "Camtd Setting"
+  },
+  "optionsOff": {
+    "message": "关闭",
+    "description": "OFF"
+  },
+  "optionsOn": {
+    "message": "开启",
+    "description": "ON"
+  },
+  "optionsIfIntercept": {
+    "message": "自动拦截下载任务到Aria2c,使用Camtd接管Chrome的默认下载行为.",
+    "description": "Automatically intercept download tasks to Aria2c,Use Camtd to take over Chrome's default download behavior."
+  },
+  "optionsFileSize": {
+    "message": "拦截的文件最小大小 (MB)",
+    "description": "The minimum file size to intercept (MB)"
+  },
+  "optionsAria2Prc": {
+    "message": "ARIA2 RPC, example：http://localhost:6800/jsonrpc",
+    "description": "ARIA2 RPC, example：http://localhost:6800/jsonrpc"
+  },
+  "optionsSave": {
+    "message": "保存",
+    "description": "Save"
+  },
+  "optionsSaved": {
+    "message": "已保存",
+    "description": "Saved"
   }
 }
