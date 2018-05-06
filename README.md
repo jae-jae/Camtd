@@ -1,5 +1,7 @@
 ![Xnip2018-05-05_12-40-13.jpg](https://cdn.rawgit.com/jae-jae/_resources/master/Xnip2018-05-05_12-40-13.jpg)
 
+[Camtd中文使用教程](https://github.com/jae-jae/Camtd/wiki/Camtd%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B)
+
 # Camtd
 Chrome multi-threaded download manager extension,based on Aria2 and AriaNg.
 
