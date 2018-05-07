@@ -103,15 +103,20 @@ function add(down) {
 function postaria2obj(addobj, callback = null) {
   var httppost = new XMLHttpRequest();
   var aria2jsonrpcpath = getStorage('path');
-  httppost.open('POST', aria2jsonrpcpath + '?tm=' + (new Date()).getTime().toString(), true);
-  var ifregurl = aria2url_reg(aria2jsonrpcpath);
-  if (ifregurl) {
-    if (!window.btoa) {
-      return 'base64_error';
+
+  var result = parse_url(aria2jsonrpcpath);
+  var auth = result[1];
+  if (auth && auth.indexOf('token:') == 0) {
+    if (addobj.params) {
+      addobj.params.unshift(auth);
     } else {
-      httppost.setRequestHeader('Authorization', 'Basic ' + btoa(ifregurl));
+      addobj.params = [auth];
     }
   }
+
+  httppost.open('POST', result[0] + '?tm=' + (new Date()).getTime().toString(), true);
+  httppost.setRequestHeader('Authorization', auth);
+
   httppost.onerror = function () {
     console.log('Error aria2 configuration!');
     if (addobj[0] && addobj[0].method === 'aria2.addUri') {
@@ -130,11 +135,24 @@ function postaria2obj(addobj, callback = null) {
 
 }
 
-function aria2url_reg(url) {
-  if (url.split('@')[0] == url) {
-    return null;
+function parse_url(url) {
+  var auth_str = request_auth(url);
+  var auth = null;
+  if (auth_str) {
+      if (auth_str.indexOf('token:') == 0) {
+          auth = auth_str;
+      } else {
+          auth = 'Basic ' + btoa(auth_str);
+      }
   }
-  return url.split('@')[0].match('/^(http:\\/\\/\|https:\\/\\/)?(.*)\/')[2];
+  var url_path = remove_auth(url);
+  function request_auth(url) {
+      return url.match(/^(?:(?![^:@]+:[^:@\/]*@)[^:\/?#.]+:)?(?:\/\/)?(?:([^:@]*(?::[^:@]*)?)?@)?/)[1];
+  }
+  function remove_auth(url) {
+      return url.replace(/^((?![^:@]+:[^:@\/]*@)[^:\/?#.]+:)?(\/\/)?(?:(?:[^:@]*(?::[^:@]*)?)?@)?(.*)/, '$1$2$3');
+  }
+  return [url_path, auth];
 }
 
 
@@ -159,16 +177,16 @@ function combination(down, cookies) {
   header.push('Referer: ' + down.referrer);
 
   if (down.filename == '') {
-    var post_obj = [{
+    var post_obj = {
       'jsonrpc': '2.0',
       'method': 'aria2.addUri',
       'id': (new Date()).getTime().toString(),
       'params': [[down.finalUrl], {
         'header': header
       }]
-    }];
+    };
   } else {
-    var post_obj = [{
+    var post_obj = {
       'jsonrpc': '2.0',
       'method': 'aria2.addUri',
       'id': (new Date()).getTime().toString(),
@@ -176,7 +194,7 @@ function combination(down, cookies) {
         'out': decodeURIComponent(down.filename),
         'header': header
       }]
-    }];
+    };
   }
   return post_obj;
 }
