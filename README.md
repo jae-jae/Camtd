@@ -61,5 +61,14 @@ $ gulp clean build
 $ gulp serve
 ```
 
+# Changelog
+
+## 0.0.8 - 2017-05-10
+### Added
+- Intercept filter，blacklist and whitelist
+
+### Changed
+- Remove connect max limit
+
 # License
 MIT
