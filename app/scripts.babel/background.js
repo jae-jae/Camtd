@@ -8,15 +8,15 @@ let preNum = 0;
 
 var getStorage = (key) => {
   if (key === 'size') {
-    let size = localStorage['size'] === undefined ? 0 : localStorage['size']
+    let size = localStorage['size'] || 0
     size = size * 1024 * 1024
     return size
   } else if(key === 'path') {
-    let path = localStorage['path'] === undefined ? 'http://localhost:6800/jsonrpc' : localStorage['path']
-    return path
+    return localStorage['path'] || 'http://localhost:6800/jsonrpc'
   } else if(key === 'enableFilter') {
-    let enableFilter = localStorage['enableFilter'] === undefined ? 'disabled' : localStorage['enableFilter']
-    return enableFilter
+    return localStorage['enableFilter'] || 'disabled'
+  } else if(key === 'filterUrlRegs') {
+    return localStorage['filterUrlRegs'] === undefined ? [] : localStorage['filterUrlRegs'].split(',').map((reg) => eval(reg))
   }
   return localStorage[key]
 }
@@ -61,17 +61,6 @@ let testUrl = (url, regs) => {
   })
 }
 
-let getFilterUrls = () => {
-  let filterUrls = getStorage('filterUrls')
-  if (filterUrls) {
-    return filterUrls.split(/\n/).filter(url => url.trim().length > 0).map((url) => {
-      url = '/' + url.trim() + '/'
-      url = eval(url)
-      return url
-    })
-  }
-  return [];
-}
 
 setInterval(() => {
   getGlobalStatus((data) => {
@@ -101,7 +90,8 @@ chrome.downloads.onDeterminingFilename.addListener(function (down) {
       let tabUrl = tab.url
       let downloadUrl = down.finalUrl
       let enableFilter = getStorage('enableFilter')
-      let filterUrls = getFilterUrls()
+      let filterUrls = getStorage('filterUrlRegs')
+      console.log(filterUrls)
       if (enableFilter === 'disabled') {
         add(down)
       }else if(enableFilter === 'blacklist') {

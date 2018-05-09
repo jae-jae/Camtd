@@ -26,8 +26,10 @@ new Vue({
                 filter: this.getI18nMessage('optionsFilter'),
                 filterUrls: this.getI18nMessage('optionsFilterUrls'),
                 blacklistHint: this.getI18nMessage('optionsBlacklistHint'),
-                whitelistHint: this.getI18nMessage('optionsWhitelistHint')
-            }
+                whitelistHint: this.getI18nMessage('optionsWhitelistHint'),
+                errorReg: this.getI18nMessage('optionsErrorReg')              
+            },
+            lastUrl: ''
         }
     },
     watch: {
@@ -52,13 +54,35 @@ new Vue({
         valueKey (key, defaultValue) {
             return localStorage[key] === undefined ? defaultValue : localStorage[key]
         },
+
+        parseUrls () {
+            let filterUrls = this.config.filterUrls
+            if (filterUrls) {
+                return filterUrls.split(/\n/).filter(function (url) {
+                  return url.trim().length > 0;
+                }).map((url) => {
+                  this.lastUrl = url
+                  url = '/' + url.trim() + '/';
+                  url = eval(url);
+                  return url;
+                });
+              }
+              return [];
+        },
         
         save () {
             console.log(this.config)
-            for (let k in this.config) {
-                localStorage[k] = this.config[k]
+            try {
+                console.log(this.parseUrls())
+                localStorage['filterUrlRegs'] = this.parseUrls()
+                for (let k in this.config) {
+                    localStorage[k] = this.config[k]
+                }
+                this.saved = true
+            } catch (error) {
+                alert(this.i18n.errorReg + ' '+ this.lastUrl)
+                console.log(error)
             }
-            this.saved = true
         }
     }
 })

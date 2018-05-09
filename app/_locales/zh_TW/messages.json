@@ -62,5 +62,9 @@
   "optionsWhitelistHint": {
     "message": "只有白名單內的網址下載才會被攔截 \r\n壹行壹條網址，網址可以是頁面鏈接也可以是真正的下載鏈接，支持正則表達式 \r\n例子:\r\npan.baidu.com\r\nhttp(s)?:\\/\\/\\w+.baidupcs.com\\/file\\/",
     "description": "Only whitelist URL downloads will intercept"
+  },
+  "optionsErrorReg": {
+    "message": "錯誤的正則表達式:",
+    "description": "Wrong regular expression:"
   }
 }

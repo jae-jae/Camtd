@@ -63,5 +63,9 @@
   "optionsWhitelistHint": {
     "message": "ホワイトリストURLのダウンロードのみがインターセプトされます \r\nURLごとに1行、URLはページリンクか実際のダウンロードリンクのいずれかになり、正規表現をサポートします \r\n例:\r\npan.baidu.com\r\nhttp(s)?:\\/\\/\\w+.baidupcs.com\\/file\\/",
     "description": "Only whitelist URL downloads will intercept"
+  },
+  "optionsErrorReg": {
+    "message": "間違った正規表現:",
+    "description": "Wrong regular expression:"
   }
 }
