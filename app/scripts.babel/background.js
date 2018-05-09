@@ -101,12 +101,21 @@ chrome.downloads.onDeterminingFilename.addListener(function (down) {
       let tabUrl = tab.url
       let downloadUrl = down.finalUrl
       let enableFilter = getStorage('enableFilter')
+      let filterUrls = getFilterUrls()
       if (enableFilter === 'disabled') {
-        dd(down)
+        add(down)
       }else if(enableFilter === 'blacklist') {
-        // if (testUrl())
+        if (!testUrl(tabUrl, filterUrls) && !testUrl(downloadUrl,filterUrls)) {
+          add(down)
+        } else {
+          console.log('blacklist:',tabUrl,downloadUrl)
+        }
       } else {
-
+        if (testUrl(tabUrl, filterUrls) || testUrl(downloadUrl,filterUrls)) {
+          add(down)
+        } else {
+          console.log('not in whitelist:',tabUrl,downloadUrl)
+        }
       }
 		})
 	})
