@@ -7,7 +7,9 @@ new Vue({
             config: {
                 enabled: parseInt(this.valueKey('enabled',1)),
                 path: this.valueKey('path','http://localhost:6800/jsonrpc'),
-                size: parseFloat(this.valueKey('size',0))
+                size: parseFloat(this.valueKey('size',0)),
+                enableFilter: this.valueKey('enableFilter','disabled'),
+                filterUrls: this.valueKey('filterUrls',''),
             },
             saved: false,
             i18n: {
@@ -18,7 +20,13 @@ new Vue({
                 fileSize: this.getI18nMessage('optionsFileSize'),
                 aria2Prc: this.getI18nMessage('optionsAria2Prc'),
                 save: this.getI18nMessage('optionsSave'),
-                saved: this.getI18nMessage('optionsSaved')
+                saved: this.getI18nMessage('optionsSaved'),
+                blacklist: this.getI18nMessage('optionsBlacklist'),
+                whitelist: this.getI18nMessage('optionsWhitelist'),
+                filter: this.getI18nMessage('optionsFilter'),
+                filterUrls: this.getI18nMessage('optionsFilterUrls'),
+                blacklistHint: this.getI18nMessage('optionsBlacklistHint'),
+                whitelistHint: this.getI18nMessage('optionsWhitelistHint')
             }
         }
     },
@@ -28,6 +36,11 @@ new Vue({
                 this.saved = false
             },
             deep: true
+        }
+    },
+    computed: {
+        urlBoxHint: function () {
+            return this.config.enableFilter === 'whitelist' ? this.i18n.whitelistHint : this.i18n.blacklistHint
         }
     },
     methods: {

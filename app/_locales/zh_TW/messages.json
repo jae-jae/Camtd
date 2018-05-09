@@ -38,5 +38,29 @@
   "optionsSaved": {
     "message": "已保存",
     "description": "Saved"
+  },
+  "optionsBlacklist": {
+    "message": "黑名單",
+    "description": "blacklist"
+  },
+  "optionsWhitelist": {
+    "message": "白名單",
+    "description": "whitelist"
+  },
+  "optionsFilter": {
+    "message": "攔截過濾",
+    "description": "filter"
+  },
+  "optionsFilterUrls": {
+    "message": "過濾網址列表",
+    "description": "filter urls"
+  },
+  "optionsBlacklistHint": {
+    "message": "黑名單內的網址下載將不會被攔截 \r\n壹行壹條網址，網址可以是頁面鏈接也可以是真正的下載鏈接，支持正則表達式 \r\n例子:\r\npan.baidu.com\r\nhttp(s)?:\\/\\/\\w+.baidupcs.com\\/file\\/",
+    "description": "Blacklist URL downloads will not be intercepted"
+  },
+  "optionsWhitelistHint": {
+    "message": "只有白名單內的網址下載才會被攔截 \r\n壹行壹條網址，網址可以是頁面鏈接也可以是真正的下載鏈接，支持正則表達式 \r\n例子:\r\npan.baidu.com\r\nhttp(s)?:\\/\\/\\w+.baidupcs.com\\/file\\/",
+    "description": "Only whitelist URL downloads will intercept"
   }
 }

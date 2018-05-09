@@ -39,5 +39,6 @@
     "default_title": "__MSG_appName__",
     "default_popup": "ui/index.html"
   },
-  "web_accessible_resources": [ "images/down-arrow.png"]
+  "web_accessible_resources": [ "images/down-arrow.png"],
+  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
 }

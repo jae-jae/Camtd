@@ -32,6 +32,18 @@
                     <input type="text" v-model="config.path">
                     <label>{{i18n.aria2Prc}}</label>
                 </div>
+                <div class="mui-select">
+                  <select v-model="config.enableFilter">
+                    <option value="disabled">{{i18n.off}}</option>
+                    <option value="blacklist">{{i18n.blacklist}}</option>
+                    <option value="whitelist">{{i18n.whitelist}}</option>
+                  </select>
+                  <label>{{i18n.filter}}</label>
+                </div>
+                <div v-if="config.enableFilter !== 'disabled'" class="mui-textfield">
+                  <textarea rows="6" v-model="config.filterUrls" :placeholder="urlBoxHint" ></textarea>
+                  <label>{{i18n.filterUrls}}</label>
+                </div>
               </div>
               <button v-if="saved"  type="button" class="mui-btn mui-btn--primary" disabled>{{i18n.saved}}</button>
               <button v-else @click="save" type="button" class="mui-btn mui-btn--primary">{{i18n.save}}</button>

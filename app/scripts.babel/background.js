@@ -14,6 +14,9 @@ var getStorage = (key) => {
   } else if(key === 'path') {
     let path = localStorage['path'] === undefined ? 'http://localhost:6800/jsonrpc' : localStorage['path']
     return path
+  } else if(key === 'enableFilter') {
+    let enableFilter = localStorage['enableFilter'] === undefined ? 'disabled' : localStorage['enableFilter']
+    return enableFilter
   }
   return localStorage[key]
 }
@@ -51,6 +54,25 @@ let getGlobalStatus = (callback) => {
   }, callback)
 }
 
+// 测试URL是否满足正则集合中某条正则
+let testUrl = (url, regs) => {
+  return regs.some((reg) => {
+    return reg.test(url)
+  })
+}
+
+let getFilterUrls = () => {
+  let filterUrls = getStorage('filterUrls')
+  if (filterUrls) {
+    return filterUrls.split(/\n/).filter(url => url.trim().length > 0).map((url) => {
+      url = '/' + url.trim() + '/'
+      url = eval(url)
+      return url
+    })
+  }
+  return [];
+}
+
 setInterval(() => {
   getGlobalStatus((data) => {
     let num = data['result']['numActive']
@@ -73,7 +95,22 @@ chrome.notifications.onClicked.addListener(function(itemId){
 	chrome.notifications.clear(itemId, function(wasCleared){} );
 });
 
-chrome.downloads.onDeterminingFilename.addListener(add);
+chrome.downloads.onDeterminingFilename.addListener(function (down) {
+  chrome.tabs.query({active: true}, function (tabs) {
+		tabs.forEach(function (tab) {
+      let tabUrl = tab.url
+      let downloadUrl = down.finalUrl
+      let enableFilter = getStorage('enableFilter')
+      if (enableFilter === 'disabled') {
+        dd(down)
+      }else if(enableFilter === 'blacklist') {
+        // if (testUrl())
+      } else {
+
+      }
+		})
+	})
+});
 
 function add(down) {
   if (!getStorage('path')) {

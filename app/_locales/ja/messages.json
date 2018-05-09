@@ -38,5 +38,30 @@
   "optionsSaved": {
     "message": "保存された",
     "description": "Saved"
+  },
+
+  "optionsBlacklist": {
+    "message": "ブラックリスト",
+    "description": "blacklist"
+  },
+  "optionsWhitelist": {
+    "message": "ホワイトリスト",
+    "description": "whitelist"
+  },
+  "optionsFilter": {
+    "message": "傍受フィルタリング",
+    "description": "filter"
+  },
+  "optionsFilterUrls": {
+    "message": "フィルタURLリスト",
+    "description": "filter urls"
+  },
+  "optionsBlacklistHint": {
+    "message": "ブラックリストURLのダウンロードは傍受されません \r\nURLごとに1行、URLはページリンクか実際のダウンロードリンクのいずれかになり、正規表現をサポートします \r\n例:\r\npan.baidu.com\r\nhttp(s)?:\\/\\/\\w+.baidupcs.com\\/file\\/",
+    "description": "Blacklist URL downloads will not be intercepted"
+  },
+  "optionsWhitelistHint": {
+    "message": "ホワイトリストURLのダウンロードのみがインターセプトされます \r\nURLごとに1行、URLはページリンクか実際のダウンロードリンクのいずれかになり、正規表現をサポートします \r\n例:\r\npan.baidu.com\r\nhttp(s)?:\\/\\/\\w+.baidupcs.com\\/file\\/",
+    "description": "Only whitelist URL downloads will intercept"
   }
 }
