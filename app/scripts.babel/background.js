@@ -71,6 +71,18 @@ let getTabUrl = () => {
 
 }
 
+let isIgnore = (down) => {
+  if (
+    /^blob:/.test(down.finalUrl)
+    || getStorage('enabled') == 0
+    || Math.abs(down.fileSize) < getStorage('size')
+  ) {
+    console.log('Ignore file')
+    return true;
+  }
+  return false
+}
+
 setInterval(() => {
   getGlobalStatus((data) => {
     let num = data['result']['numActive']
@@ -109,10 +121,11 @@ chrome.downloads.onDeterminingFilename.addListener(function (down) {
     chrome.tabs.create({ 'url': 'options.html' }, function (s) { });
     return 0;
   }
-  if (getStorage('enabled') == 0 || Math.abs(down.fileSize) < getStorage('size')) {
-    return 0;
+
+  if (isIgnore(down)) {
+    return 0
   }
-  
+
   let downloadUrl = down.finalUrl
   let enableFilter = getStorage('enableFilter')
   let filterUrls = getStorage('filterUrlRegs')
