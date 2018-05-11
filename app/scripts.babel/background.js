@@ -148,7 +148,6 @@ function add(down) {
 }
 
 function postaria2obj(addobj, callback = null) {
-  var httppost = new XMLHttpRequest();
   var aria2jsonrpcpath = getStorage('path');
 
   var result = parse_url(aria2jsonrpcpath);
@@ -161,23 +160,27 @@ function postaria2obj(addobj, callback = null) {
     }
   }
 
-  httppost.open('POST', result[0] + '?tm=' + (new Date()).getTime().toString(), true);
-  httppost.setRequestHeader('Authorization', auth);
-
-  httppost.onerror = function () {
+  fetch(result[0] + '?tm=' + (new Date()).getTime().toString(), {
+    method: 'POST',
+    body: JSON.stringify(addobj),
+    headers: {
+      'Authorization': auth,
+      'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+    }
+  }).then((response) => {
+    return response.json()
+  }).then((data) => {
+    if (callback) {
+      callback(data)
+    }
+  }).catch((error) => {
+    console.error('Error:', error)
     console.log('Error aria2 configuration!');
-    if (addobj[0] && addobj[0].method === 'aria2.addUri') {
+    if (addobj && addobj.method === 'aria2.addUri') {
       notice('Error adding tasks to aria2,please check the configuration!', 'Error');
     }
-  };
-  httppost.addEventListener('load', function () {
-    let rt = JSON.parse(this.responseText)
-    if (callback) {
-      callback(rt)
-    }
   })
-  httppost.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
-  httppost.send(JSON.stringify(addobj));
+
   return 'ok';
 
 }

@@ -63,7 +63,11 @@ $ gulp serve
 
 # Changelog
 
-## 0.0.8 - 2017-05-10
+## 1.0 - 2018-05-11
+### Fixed
+- Error configuration notice
+
+## 0.0.8 - 2018-05-10
 ### Added
 - Intercept filter，blacklist and whitelist
 
