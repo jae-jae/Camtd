@@ -364,14 +364,14 @@ function _init() {
       var handleTime;
       //Expand sidebar on hover
       $('.main-sidebar,.main-header>.logo').hover(function () {
-        if ($('body').hasClass('sidebar-mini')
-          && $("body").hasClass('sidebar-collapse')
-          && $(window).width() > screenWidth) {
-          _this.expand();
-        }
+        // if ($('body').hasClass('sidebar-mini')
+        //   && $("body").hasClass('sidebar-collapse')
+        //   && $(window).width() > screenWidth) {
+        //   _this.expand();
+        // }
       }, function () {
         if ($('body').hasClass('sidebar-mini')
-        && $('body').hasClass('sidebar-expanded-on-hover')
+        // && $('body').hasClass('sidebar-expanded-on-hover')
         && $(window).width() > screenWidth) {
           _this.collapse();
         }
@@ -381,7 +381,7 @@ function _init() {
       $("body").removeClass('sidebar-collapse').addClass('sidebar-expanded-on-hover');
     },
     collapse: function () {
-      if ($('body').hasClass('sidebar-expanded-on-hover')) {
+      if (!$("body").hasClass('sidebar-collapse')) {
         $('body').removeClass('sidebar-expanded-on-hover').addClass('sidebar-collapse');
       }
     }
