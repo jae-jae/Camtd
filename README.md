@@ -63,6 +63,14 @@ $ gulp serve
 
 # Changelog
 
+## 1.2 - 2018-05-28
+### Fixed
+- Fixed filter
+
+## 1.1 - 2018-05-11
+### Fixed
+- Ignore blob protocol
+
 ## 1.0 - 2018-05-11
 ### Fixed
 - Error configuration notice

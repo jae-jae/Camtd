@@ -17,7 +17,7 @@ var getStorage = (key) => {
   } else if (key === 'enableFilter') {
     return localStorage['enableFilter'] || 'disabled'
   } else if (key === 'filterUrlRegs') {
-    return localStorage['filterUrlRegs'] === undefined ? [] : localStorage['filterUrlRegs'].split(',').map((reg) => eval(reg))
+    return localStorage['filterUrlRegs']? localStorage['filterUrlRegs'].split(',').map((reg) => eval(reg)) : []
   }
   return localStorage[key]
 }
@@ -128,17 +128,17 @@ chrome.downloads.onDeterminingFilename.addListener(function (down) {
 
   let downloadUrl = down.finalUrl
   let enableFilter = getStorage('enableFilter')
-  let filterUrls = getStorage('filterUrlRegs')
+  let filterUrlsRegs = getStorage('filterUrlRegs')
   if (enableFilter === 'disabled') {
     add(down)
   } else if (enableFilter === 'blacklist') {
-    if (!testUrl(currentUrl, filterUrls) && !testUrl(downloadUrl, filterUrls)) {
+    if (!testUrl(currentUrl, filterUrlsRegs) && !testUrl(downloadUrl, filterUrlsRegs)) {
       add(down)
     } else {
       console.log('blacklist:', currentUrl, downloadUrl)
     }
   } else {
-    if (testUrl(currentUrl, filterUrls) || testUrl(downloadUrl, filterUrls)) {
+    if (testUrl(currentUrl, filterUrlsRegs) || testUrl(downloadUrl, filterUrlsRegs)) {
       add(down)
     } else {
       console.log('not in whitelist:', currentUrl, downloadUrl)
