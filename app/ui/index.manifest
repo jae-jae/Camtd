@@ -10,7 +10,7 @@ js/bootstrap-3.3.7.min.js
 js/echarts-common-3.7.1.min.js
 js/jquery-2.2.4.min.js
 js/moment-with-locales-2.18.1.min.js
-js/plugins-cfcb834c2b.min.js
+js/plugins-a074a5536e.min.js
 fonts/fontawesome-webfont.woff2
 index.html
 
@@ -20,4 +20,4 @@ NETWORK:
 SETTINGS:
 prefer-online
 
-# hash: c2e668113461616af5c0a708eb9e32cde4f22638b161d1c92270179e3ae095bd
+# hash: eab7d84b9a6240b427179dc55425de9d52ee2f589bb67e757d2abd16bbadf726
