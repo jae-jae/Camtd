@@ -66,6 +66,8 @@ $ gulp serve
 ## 1.2 - 2018-05-28
 ### Fixed
 - Fixed filter
+- Optimization siderbar
+- Optimization status notice
 
 ## 1.1 - 2018-05-11
 ### Fixed

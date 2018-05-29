@@ -1,6 +1,7 @@
 /* global-status */
 .global-status {
     cursor: pointer;
+    display: none;
 }
 
 .global-status > .realtime-speed {
@@ -18,3 +19,4 @@
 .global-status span.realtime-speed > i {
     padding-right: 2px;
 }
+

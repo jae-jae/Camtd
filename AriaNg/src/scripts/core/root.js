@@ -165,9 +165,11 @@
         });
 
         aria2TaskService.onFirstSuccess(function () {
-            ariaNgNotificationService.notifyInPage('', 'Connection Succeeded', {
-                type: 'success'
-            });
+            // ariaNgNotificationService.notifyInPage('', 'Connection Succeeded', {
+            //     type: 'success'
+            // });
+            $('.footer-aria2-status').hide();
+            $('.global-status').show();
         });
 
         aria2TaskService.onConnectSuccess(function () {
