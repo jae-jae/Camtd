@@ -73,7 +73,7 @@ let getTabUrl = () => {
 
 let isIgnore = (down) => {
   if (
-    /^blob:|^data:/.test(down.finalUrl)
+    !/^http:|^https:|^ftp:|^sftp:/.test(down.finalUrl)
     || getStorage('enabled') == 0
     || Math.abs(down.fileSize) < getStorage('size')
   ) {

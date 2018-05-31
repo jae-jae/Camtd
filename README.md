@@ -63,9 +63,9 @@ $ gulp serve
 
 # Changelog
 
-## 1.3 - 2018-05-31
+## 1.4 - 2018-05-31
 ### Fixed
-- Ignore data protocol
+- Ignore all non http/https/ftp/sftp protocols
 
 ## 1.2 - 2018-05-28
 ### Fixed
