@@ -63,6 +63,10 @@ $ gulp serve
 
 # Changelog
 
+## 1.3 - 2018-05-31
+### Fixed
+- Ignore data protocol
+
 ## 1.2 - 2018-05-28
 ### Fixed
 - Fixed filter

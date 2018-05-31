@@ -73,7 +73,7 @@ let getTabUrl = () => {
 
 let isIgnore = (down) => {
   if (
-    /^blob:/.test(down.finalUrl)
+    /^blob:|^data:/.test(down.finalUrl)
     || getStorage('enabled') == 0
     || Math.abs(down.fileSize) < getStorage('size')
   ) {
