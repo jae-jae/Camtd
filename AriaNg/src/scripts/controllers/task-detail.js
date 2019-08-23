@@ -325,7 +325,7 @@
                 value += angular.element(element).text().trim();
             });
 
-            var info = name + ': ' + value;
+            var info = value;
             clipboard.copyText(info);
         };
 
