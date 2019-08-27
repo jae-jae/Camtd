@@ -41,6 +41,8 @@ $ yarn
 # Transform updated source written by ES2015 (default option)
 $ gulp babel
 
+$ bower install
+
 # or Using watch to update source continuously
 $ gulp watch
 
